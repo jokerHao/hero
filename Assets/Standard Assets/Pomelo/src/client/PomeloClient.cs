@@ -82,9 +82,9 @@ namespace Pomelo.DotNetClient
 		}
 		
 		public void request(string route, JsonObject msg, Action<JsonObject> action){
-			reqId++;
 			this.eventManager.AddCallBack(reqId, action);
 			protocol.send (route, reqId, msg);
+			reqId++;
 		}
 		
 		public void notify(string route, JsonObject msg){

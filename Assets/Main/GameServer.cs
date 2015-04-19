@@ -19,23 +19,29 @@ public class GameServer : MonoBehaviour {
 		socket.connect ((data_connect)=>{
 			Log("socket connect");
 			Request("connector.entryHandler.entry", (data_enter)=>{
+				On ("START", (data)=>{
+				});
 			});
 		});
 	}
 
-	public void Game_EntryLobby () {
-		socket.request("game.gameHandler.entryLobby", new JsonObject(), (data)=>{
+	public void Game_Entry () {
+		Request("game.gameHandler.entry", new JsonObject(), (data)=>{
 		});
 	}
 
-	public void Game_GetLobbyPlayers () {
-		Request("game.gameHandler.getLobbyPlayers", (data)=>{
+	public void Game_GetPlayers () {
+		Request("game.gameHandler.getPlayers", (data)=>{
 		});
 	}
 
+	public void Game_Ready () {
+		Request("game.gameHandler.ready", (data)=>{
+		});
+	}
 
 	void Request (string route, Action<JsonObject> next) {
-		Request (route, null, next);
+		Request (route, new JsonObject(), next);
 	}
 	void Request (string route, JsonObject msg, Action<JsonObject> next) {
 		Debug.Log (string.Format ("[>>] {0} : {1}", route, msg));
@@ -44,7 +50,13 @@ public class GameServer : MonoBehaviour {
 			next(data);
 		});
 	}
+	void On (string route, Action<JsonObject> next) {
+		Debug.Log (string.Format ("[+] {0}", route));
+		socket.on(route, (data)=>{
+			Debug.Log (string.Format ("[<<] push {0} : {1}", route, data));
 
+		});
+	}
 	void Log (object msg) {
 		Debug.Log(string.Format("[{0}:{1}] {2}",host, port ,msg));
 	}

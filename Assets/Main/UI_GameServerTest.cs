@@ -17,13 +17,16 @@ public class UI_GameServerTest : MonoBehaviour {
 
 	void OnGUI () {
 		if (GUILayout.Button("Connect", GUILayout.Width(Screen.width))) {
-			gameSer.Connect("127.0.0.1",6012);
+			gameSer.Connect("192.168.2.5",6012);
 		}
-		if (GUILayout.Button("Game_EntryLobby", GUILayout.Width(Screen.width))) {
-			gameSer.Game_EntryLobby();
+		if (GUILayout.Button("Game_Entry", GUILayout.Width(Screen.width))) {
+			gameSer.Game_Entry();
 		}
-		if (GUILayout.Button("Game_GetLobbyPlayers", GUILayout.Width(Screen.width))) {
-			gameSer.Game_GetLobbyPlayers();
+		if (GUILayout.Button("Game_GetPlayers", GUILayout.Width(Screen.width))) {
+			gameSer.Game_GetPlayers();
+		}
+		if (GUILayout.Button("Game_Ready", GUILayout.Width(Screen.width))) {
+			gameSer.Game_Ready();
 		}
 	}
 }
